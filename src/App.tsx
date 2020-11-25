@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { Card, CardGrid } from './components/Card.style';
+import Header from './components/Header.styles';
+import moment from 'moment';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+  state = {
+    jobs: []
+  };
+
+  componentDidMount() {
+    fetch(
+      'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json'
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ jobs: data });
+      });
+  }
+
+  render() {
+    const cards = this.state.jobs;
+    return (
+      <div>
+        <Header>
+          <div className="container">
+            <div className="brand">devjobs</div>
+            <div>switcher</div>
+          </div>
+        </Header>
+        <div className="container">
+          <CardGrid>
+            {cards.map((item) => {
+              return (
+                <Card key={item.id}>
+                  <div className="company-logo">
+                    <img src={item.company_logo} alt="logo" />
+                  </div>
+                  <p>
+                    {moment(new Date(item.created_at)).fromNow()} . {item.type}
+                  </p>
+                  <h3>{item.title}</h3>
+                  <p>{item.company}</p>
+                  <h5>{item.location}</h5>
+                </Card>
+              );
+            })}
+          </CardGrid>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
