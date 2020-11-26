@@ -4,9 +4,9 @@ import { Card, CardGrid } from './components/Card.style';
 import Header from './components/Header.styles';
 import moment from 'moment';
 
-class App extends Component{
+class App extends Component {
   state = {
-    jobs: []
+    jobs: [],
   };
 
   componentDidMount() {
@@ -25,8 +25,17 @@ class App extends Component{
       <div>
         <Header>
           <div className="container">
-            <div className="brand">devjobs</div>
-            <div>switcher</div>
+            <div className="header-container">
+              <div className="brand">
+                <h1>devjobs</h1>
+              </div>
+              <div>
+                <label className="switch">
+                  <input type="checkbox" />
+                  <span className="slider round"></span>
+                </label>
+              </div>
+            </div>
           </div>
         </Header>
         <div className="container">

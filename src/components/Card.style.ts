@@ -47,4 +47,12 @@ export const CardGrid = styled.div`
   row-gap: 4rem;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
+
+  @media (max-width: 65rem) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 40rem) {
+    grid-template-columns: 1fr;
+  }
 `;
